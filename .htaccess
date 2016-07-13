@@ -1,0 +1,16 @@
+
+RewriteOptions inherit
+
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^vid5\.surgehost\.com\.au$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.vid5\.surgehost\.com\.au$
+RewriteRule ^/?$ "https\:\/\/videoin5\.com\.au\/" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^videoinfive\.com\.au$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.videoinfive\.com\.au$
+RewriteRule ^/?$ "https\:\/\/videoin5\.com\.au\/" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^.*$
+RewriteRule ^chrome\.com\.au$ "http\:\/\/chrome\.com\.au\/" [R=301,L]
+

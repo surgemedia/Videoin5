@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="">
+		<head>
+		<title>V5 by Surge Media</title>
+		<meta charset="UTF-8">
+		<meta name=description content="Video in Five ,is an automated video creation services to help you get the best out of video">
+		<meta name=viewport content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap CSS -->
+		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+		<link href='https://fonts.googleapis.com/css?family=Raleway:400,700,200' rel='stylesheet' type='text/css'>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<link rel="stylesheet" href="css/responsiveslides.css">
+		<link rel="stylesheet" type="text/css" href="css/fa.css" />
+		<link rel="stylesheet" type="text/css" href="css/layout.css" />
+		<link rel="stylesheet" type="text/css" href="css/skeleton.css" />
+
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="css/animate.css" />
+		<link rel="stylesheet" type="text/css" href="css/addon.css" />
+		<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<!-- ICONS! -->
+		<link rel="shortcut icon" href="/img/favicon.ico">
+	<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/img/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2717364-7', 'auto');
+  ga('send', 'pageview');
+
+</script>
+	</head>
+	<!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
+	<script>
+		$(document).ready(function() {
+	
+			// $('#submitbutton').addClass('hide');
+			$("#helper_text").hide();
+			$('input').change(function(e) {
+				if ($('#fname').val() && $('#mobile').val() && $('#email').val() && $('#logo').val() && $('#video').val()) {
+					$('.rslides_nav.rslides1_nav.next').hide();
+					$("#helper_text").show();
+				}
+			});
+		});
+		function validateForm2()
+		{
+			var x=document.forms["apply_form"]["email"].value;
+			var atpos=x.indexOf("@");
+			var dotpos=x.lastIndexOf(".");
+			if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+				{
+					alert("E-mail must be a valid email address");
+					return false;
+				}else{
+					$( ".dislog_bg" ).addClass("display");
+				}
+			}
+		</script>
+		<body>
+        <header id='vidbg'>
+            
+            
+            <!-- nav>li*3>a -->
+            <div class="center">
+                <h1 class="logo fadeInDown wow" data-wow-duration="2s">
+                <img src="img/logov5.svg" alt="Video in 5">
+                </h1>
+                <small class="cred">
+                <span class="darkblue clear">Video in 5</span>
+                <span ><a href="https://www.surgemedia.com.au" target="_blank">by Surge Media</a></span> <i class="surgelogo"></i>
+                </small>
+                <ul id="simplemessage">
+                    <li class="wow flipInX Serverdown" data-wow-duration="2s">
+                        <i class="server"></i>
+                        <small>Sorry! Server Upgarding...<br/>
+                		Please try again later.</small>
+                    </li>
+                </ul>
+            </div>
+		</header>
+        <footer >
+        <div class="blockwidth mcenter ">
+        <ul>
+       <li class="col-1-4">
+         <a href="terms.php">Terms</a>
+        </li>
+        <li class="col-1-4">
+         <a href="prices.php">Prices</a>
+        </li>
+         <li class="col-1-4">
+         <a href="privacy.php">Privacy</a>
+        </li>
+         <li class="col-1-4">
+         <a href="contact.php">Contact us</a>
+        </li>
+        </ul>
+       <a class="copy" href="https://www.surgemedia.com.au" target="_blank">© Copyright Surge Media Pty Ltd</a>
+        </div>
+        <div class="social_media">
+        <ul>
+        	<li><a href="https://twitter.com/videoin5" target="_blank"><img src="img/twitter.png" /></a></li>
+            <li><a href="https://www.facebook.com/videoin5" target="_blank"><img src="img/facebook.png" /></a></li>
+        </ul>
+        </div>
+    </footer>
+
+		<!-- jQuery -->
+		<script src="js/jquery.js"></script>
+		<script src="js/responsiveslides.min.js"></script>
+		<script src="js/wow.min.js"></script>
+        <script src="js/jquery.scrollTo.min.js"></script>
+
+        <script src="js/jquery.localScroll.min.js"></script>
+
+		<!-- Bootstrap JavaScript -->
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.backgroundvideo.min.js"></script>
+	    <script src="loadingbar.js"></script>  
+		<script src="js/app.js"></script>         s
+    </body>
+</html>

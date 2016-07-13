@@ -1,0 +1,553 @@
+<?
+	include('db_connection_13r2fdfd34.php');
+	
+	$globel_data = mysql_query("SELECT * FROM global_datas ORDER BY id");//if can insert order information to database, allow php to take paypal account
+	$globel_data_num = mysql_num_rows($globel_data);
+	for($i=0; $i<$globel_data_num; $i++){
+		$globel_data_row = 	mysql_fetch_array($globel_data);
+		$globel_data_values[$globel_data_row['type_name']] = $globel_data_row['global_values'];
+	}
+?>
+<!DOCTYPE html>
+<html lang="">
+	<? include('head.php');?>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script>
+		$(document).ready(function() {
+	
+			// $('#submitbutton').addClass('hide');
+			$("#helper_text").hide();
+			$('input').change(function(e) {
+				if ($('#fname').val() && $('#mobile').val() && $('#email').val() && $('#logo').val() && $('#video').val()) {
+
+					$('.rslides_nav.rslides1_nav.next').hide();
+					$("#helper_text").show();
+				}
+			});
+		});
+		function validateForm2()
+		{
+			var x=document.forms["apply_form"]["email"].value;
+			var atpos=x.indexOf("@");
+			var dotpos=x.lastIndexOf(".");
+			if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+			{
+				alert("E-mail must be a valid email address");
+				return false;
+			}else{
+				$( ".dialog" ).addClass("display");
+			}
+		} 
+    </script>
+	<body>
+	<? include('header.php');?>
+
+	<section id="main" class=" wowd fadeInDown blockwidth grid">
+	<div id="how_it_works">
+		<ul class="blockwidth mcenter" >
+			<li>
+			<a href="#slider">
+            	<div class="icon_border">
+                    <i class="thin upload"></i>
+				</div>
+            </a>
+				<h3>Upload your content</h3>
+				<p>
+					Upload your logo and video to make awesome and professional videos.
+				</p>
+			</li>
+			<li>
+			<a href="#slider">
+				<div class="icon_border">
+                	<i class="thin create"></i>
+				</div>
+            </a>
+				<h3>Choose your style</h3>
+				<p>
+					Select the background color for your logo, as well as font style and color. 
+				</p>
+			</li>
+			<li>
+			<a href="#slider">
+            	<div class="icon_border">
+                    <i class="thin message"></i>
+				</div>
+            </a>
+				<h3>Add your message</h3>
+				<p>
+					add your message in the end of video like your contact information or a thanks message.
+				</p>
+			</li>
+			<li>
+			<a href="#slider">
+            	<div class="icon_border">
+					<i class="thin wait"></i>
+				</div>
+            </a>
+				<h3>Play the waiting game</h3>
+				<p>We take quality seriously thats why all our V5 Videos are checked by our staff before they are delivered.</p>
+			</li>
+		</ul>
+	</div>
+
+		<!--<form action="process.php" method="post" enctype="multipart/form-data" onsubmit="
+        	if(this.name.value==''){ alert('Please input your full name'); this.name.focus(); return false} 
+        	if(this.email.value==''){ alert('You need your email to send the completed video'); this.email.focus(); return false} 
+        	if(this.mobile.value==''){ alert('Your contact number can help u to check with you!'); this.mobile.focus(); return false} 
+        ">-->
+		<div id="slider" class="blockwidth mcenter" >
+                    <form action="process.php" method="post" enctype="multipart/form-data" name="apply_form" onsubmit="
+                     
+                    	if(this.name.value==''){ alert('Name cannot empty!'); this.name.focus(); $('#full_name').addClass('error'); return false} 
+                        if(this.email.value==''){ alert('E-mail cannot empty!'); this.email.focus(); $('#email').addClass('error'); return false} 
+                        if(this.mobile.value==''){ alert('Contact number cannot empty!'); this.mobile.focus(); $('#contact_number').addClass('error'); return false} 
+                        if(this.video.value==''){ alert('Please upload your video!'); this.video_file.focus(); return false}
+                        if(this.check_bot.value!=this.color_match.value){ alert('Looks like you missed a step. This is to prove your a human not a robot. What is the color of the price box? Please answer this question by choosing the color from the dropdown under the price box '); this.color_match.focus(); $('#captcha').addClass('error'); return false}else{
+                            }
+                        return validateForm2();
+                        loadingTrigger('#submitbutton');
+                     ">
+			<ul class="rslides" >
+			<li  class="slide">
+				<div id="faq" class=" mcenter">
+				<div class="col-1-2">
+					<h2>What Is V5?</h2>
+                    <iframe class="" width="100%" height="240" src="//www.youtube.com/embed/LpCB5FLnGKE?showinfo=0&controls=0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                  <div class="col-1-2">
+                  <h2>V5 Explained</h2>
+                    <iframe class="" width="100%" height="240" src="//www.youtube.com/embed/wa6sp6jNxko?showinfo=0&controls=0" frameborder="0" allowfullscreen></iframe>
+				</div>
+				<div class="clear pad-top">
+					<p class="text_center">Use the Number in the circle below to jump between the steps. If you have missed a step, you can quicly jump back to it using these numbers</p>
+				</div>
+			</div>
+			</li>
+				<li class="upload slide">
+				<h2>Upload Content</h2>
+				<div class="col-1-2">
+				<h3>Upload your <strong>Logo</strong><br></h3>
+					<div class="square_wrapper">
+                    	<i class="thin upload"><input type="file" name="logo_file" id="logo_file"/></i>
+					</div>
+					<div class="uploader">
+						<!-- <iframe src="http://dbinbox.com/foolishfox" frameborder="0"></iframe> -->
+                        <input id="logo" disabled="disabled" class="disable_input">
+					</div>
+				</div>
+				<div class="col-1-2">
+				<h3>Upload your <strong>Video</strong></h3>
+					<div class="square_wrapper">
+                    	<i class="thin upload"><input type="file" name="video_file" id="video_file"/></i>
+					</div>
+					<div class="uploader">
+						<!-- <iframe src="http://dbinbox.com/foolishfox" frameborder="0"></iframe> -->
+                        <input id="video" disabled="disabled" class="disable_input">
+					</div>
+				</div>
+                <ul id="quote" class="form clear pad-bottom">
+                <li>
+                	<div id="companyname">
+                        <p>Don't have a Logo? Type your name or company here to show in video.</p>
+                        <input name="company_name" class="textbox pad-top">
+                    </div>
+                </li>
+                </ul>
+				<p class="pad-top">V5 is the web app providing for quick and short video, If your file is over 300 MB, please contact us: Ph:07 3137 1171</p>
+
+				</li>
+				<li class="slide">
+					<h2>Choose your style</h2>
+					
+					<ul id="animations">
+						<li class="options">
+                            <label>
+                            <input name="group" type="radio" value="PUSH" checked="checked"/> <img src="img/V5-PUSH.gif" alt="">
+						<p class="name"></p>
+
+                            </label>
+                        </li>
+						<li class="options">
+                            <label>
+                            <input name="group" type="radio" value="PUSH-AND-FLARE"><img src="img/V5-PUSH-AND-FLARE.gif" alt="">
+						<p class="name"></p>
+
+                            </label>
+                        </li>
+						<li class="options">
+                            <label>
+                            <input name="group" type="radio" value="FAST-PUSH"><img src="img/V5-FAST-PUSH.gif" alt="">
+						<p class="name"></p>
+
+                            </label>
+                        </li>
+						<li class="options">
+                            <label>
+                            <input name="group" type="radio" value="FALL-IN"><img src="img/V5-FALL-IN.gif" alt="">
+						<p class="name"></p>
+
+                            </label>
+                        </li>
+						<li class="options">
+                            <label>
+                            <input name="group" type="radio" value="RUSH-IN"><img src="img/V5-RUSH-IN.gif" alt="">
+						<p class="name"></p>
+
+                            </label>
+                        </li>
+						<li class="options">
+                            <label>
+                            <input name="group" type="radio" value="FADE-PUSH"><img src="img/V5-FADE-PUSH.gif" alt="">
+						<p class="name"></p>
+
+                            </label>
+                        </li>
+						<li class="options">
+                            <label>
+                            <input name="group" type="radio" value="SWEEP-PUSH"><img src="img/V5-SWEEP-PUSH.gif" alt="">
+						<p class="name"></p>
+
+                            </label>
+                        </li>
+						<li class="options">
+                            <label>
+                            <input name="group" type="radio" value="SPIN-IN"><img src="img/V5-SPIN-IN.gif" alt="">
+						<p class="name"></p>
+
+                            </label>
+                        </li>
+						<li class="options">
+                            <label>
+                            <input name="group" type="radio" value="FADE-SWEEP-PUSH"><img src="img/V5-FADE-SWEEP-PUSH.gif" alt="">
+						<p class="name"></p>
+
+                            </label>
+                        </li>
+					</ul>
+				</li>
+				<!--<li class="slide">
+					<h2>Choose your Logo display in Video</h2>
+					
+					<ul id="animations">
+						<li class="options">
+                        	<label><input name="group2" type="radio" value="upper-left" checked="checked"/> <img src="img/upper-left.jpg" alt=""></label>
+                        </li>
+						<li class="options">
+                        	<label><input name="group2" type="radio" value="upper-central"><img src="img/upper-central.jpg" alt=""></label>
+                        </li>
+						<li class="options">
+                        	<label><input name="group2" type="radio" value="upper-right"><img src="img/upper-right.jpg" alt=""></label>
+                        </li>
+						<li class="options">
+                        	<label><input name="group2" type="radio" value="central-left"><img src="img/central-left.jpg" alt=""></label>
+                        </li>
+						<li class="options">
+                        	<label><input name="group2" type="radio" value="non-logo"><img src="img/non-logo.jpg" alt=""></label>
+                        </li>
+						<li class="options">
+                        	<label><input name="group2" type="radio" value="central-right.jpg"><img src="img/central-right.jpg" alt=""></label>
+                        </li>
+						<li class="options">
+                        	<label><input name="group2" type="radio" value="bottom-left"><img src="img/bottom-left.jpg" alt=""></label>
+                        </li>
+						<li class="options">
+                        	<label><input name="group2" type="radio" value="bottom-central"><img src="img/bottom-central.jpg" alt=""></label>
+                        </li>
+						<li class="options">
+                        	<label><input name="group2" type="radio" value="bottom-right"><img src="img/bottom-right.jpg" alt=""></label>
+                        </li>
+					</ul>
+				</li>-->
+				<li class="slide">
+				<h2>Add you message</h2>
+				<ul class="form">
+					<li class="col-1-2 video_message">
+						<h3>Enter Message Below</h3>
+                        <input name="upper_message" class="textarea2 message_style top_message" id="realtime_upmsg"/>
+                        <input name="middle_message" class="textarea2 message_style middle_message" id="realtime_mdmsg"/>
+                        <input name="bottom_message" class="textarea2 message_style bottom_message" id="realtime_bumsg"/>
+					</li>
+                    <div id="select_option1">				
+                        <li class="col-1-2 video_message_options video_message_options_first display">
+                        <h3>Choose font </h3>
+                        <div class="select">
+                        <select name="font_style" id="font_style">
+                            <option value="Arial">Arial</option>
+                            <option value="Open Sans">Open Sans</option>
+                            <option value="Raleway">Raleway</option>
+                            <option value="Montserrat">Montserrat</option>
+                        </select>
+                        </div>
+                        </li>
+                        <li class="col-1-2 video_message_options display">
+                        <h3>Choose font size</h3>
+                        <div class="select">
+                        <select name="font_size" id="font_size">
+                            <option value="34px">50px</option>
+                            <option value="44px">100px</option>
+                            <option value="54px">150px</option>
+                            <option value="64px">200px</option>
+                        </select>
+                        </div>
+                        </li>
+                        <li class="col-1-2 video_message_options display">
+                        <h3>Choose Uppercase or Lowercase</h3>
+                        <div class="select">
+                        <select name="font_tran" id="font_tran">
+                            <option value="none">Normal</option>
+                            <option value="uppercase">uppercase</option>
+                            <option value="lowercase">lowercase</option>
+                        </select>
+                        </div>
+                    </li>
+                     </div>
+                    <div id="select_option2" class="disappear">				
+                        <li class="col-1-2 video_message_options video_message_options_first display">
+                        <h3>Choose font </h3>
+                        <div class="select">
+                        <select name="font_style2" id="font_style2">
+                            <option value="Arial">Arial</option>
+                            <option value="Open Sans">Open Sans</option>
+                            <option value="Raleway">Raleway</option>
+                            <option value="Montserrat">Montserrat</option>
+                        </select>
+                        </div>
+                        </li>
+                        <li class="col-1-2 video_message_options display">
+                        <h3>Choose font size</h3>
+                        <div class="select">
+                        <select name="font_size2" id="font_size2">
+                            <option value="34px">50px</option>
+                            <option value="44px">100px</option>
+                            <option value="54px">150px</option>
+                            <option value="64px">200px</option>
+                        </select>
+                        </div>
+                        </li>
+                        <li class="col-1-2 video_message_options display">
+                        <h3>Choose Uppercase or Lowercase</h3>
+                        <div class="select">
+                        <select name="font_tran2" id="font_tran2">
+                            <option value="none">Normal</option>
+                            <option value="uppercase">uppercase</option>
+                            <option value="lowercase">lowercase</option>
+                        </select>
+                        </div>
+                    </li>
+                     </div>
+                    <div id="select_option3" class="disappear">						
+                        <li class="col-1-2 video_message_options video_message_options_first display">
+                        <h3>Choose font </h3>
+                        <div class="select">
+                        <select name="font_style3" id="font_style3">
+                            <option value="Arial">Arial</option>
+                            <option value="Open Sans">Open Sans</option>
+                            <option value="Raleway">Raleway</option>
+                            <option value="Montserrat">Montserrat</option>
+                        </select>
+                        </div>
+                        </li>
+                        <li class="col-1-2 video_message_options display">
+                        <h3>Choose font size</h3>
+                        <div class="select">
+                        <select name="font_size3" id="font_size3">
+                            <option value="34px">50px</option>
+                            <option value="44px">100px</option>
+                            <option value="54px">150px</option>
+                            <option value="64px">200px</option>
+                        </select>
+                        </div>
+                        </li>
+                        <li class="col-1-2 video_message_options display">
+                        <h3>Choose Uppercase or Lowercase</h3>
+                        <div class="select">
+                        <select name="font_tran3" id="font_tran3">
+                            <option value="none">Normal</option>
+                            <option value="uppercase">uppercase</option>
+                            <option value="lowercase">lowercase</option>
+                        </select>
+                        </div>
+                    </li>
+                     </div>
+                       <!--  <li class="col-1-2">
+                            <h4>Add your notes or request of message.</h4>
+                            <textarea class="textarea" name="notes_bumsg"></textarea>
+                        </li> -->
+                    <li class="col-1-2">
+                        <h3>Background Color of Message and Logo(the text will be other)</h3>
+                         <div class="select">
+                        <select name="backgroup_color"  id="backgroup_color">
+                            <option value="white">White</option>
+                            <option value="black">Black</option>
+                        </select>
+                        </div>
+                    </li>
+				</ul>
+				
+                	
+                </li>
+				<li class="slide">
+					<h2>Your Video Quote</h2>
+                    <div name="checker" class="price" disabled="disabled" style="background-color:
+					<?
+						$CAPCHA_colors = mysql_query("SELECT * FROM CAPCHA_colors ORDER BY id");//get all colors from database.
+						$CAPCHA_colors_num = mysql_num_rows($CAPCHA_colors);//checking how many color in database.
+						for($i=0; $i<$CAPCHA_colors_num; $i++){
+							$CAPCHA_colors_row = 	mysql_fetch_array($CAPCHA_colors);
+							$CAPCHA_colors_id = $CAPCHA_colors_row['id'];
+							$CAPCHA_colors_name[$CAPCHA_colors_id] = $CAPCHA_colors_row['color_code'];
+						}
+						$rand_color = (rand(1,$CAPCHA_colors_num));
+						echo '#'.$CAPCHA_colors_name[$rand_color].';';
+					?>
+                    ">
+                    <?
+						$show_price = 'AU$ '.$globel_data_values['ChargeAmount'];
+						if($globel_data_values['discount_percentage']!=""){
+							$delshow1 = '<del style="font-size:14px;">AU$ '.$globel_data_values['ChargeAmount'].'</del>';
+							$show_price_edit = $globel_data_values['ChargeAmount'] - ($globel_data_values['ChargeAmount'] * $globel_data_values['discount_percentage'] /100);
+							$show_price = 'AU$ '.$show_price_edit;
+						}
+					?>
+                    <?=$delshow1.$show_price;?> <br>
+					<span style="font-size:14px;">included GST</span></div>
+                    <input name="check_bot" type="hidden" value="<?=$rand_color;?>">
+                    <ul id="quote" class="form">
+                         <li id="captcha">
+                            <h3>To proceed with your quote please select the color of the box above?</h3>
+                             <div class="select">
+                            <select name="color_match">
+                            	<option value="0">White</option>
+							<?
+                                $colors_for_check = mysql_query("SELECT * FROM CAPCHA_colors ORDER BY id");//get all colors from database.
+                                $colors_for_check_num = mysql_num_rows($colors_for_check);
+                                for($i=0; $i<$colors_for_check_num; $i++){
+                                    $colors_for_check_row = mysql_fetch_array($colors_for_check);
+									echo '<option value="'.$colors_for_check_row['id'].'">'.$colors_for_check_row['color'].'</option>';
+                                }
+                                $rand_color = (rand(1,$CAPCHA_colors_num));
+                            ?>
+                            </select>
+                            </div>
+                        </li>
+                        <li id="full_name">
+                            <label>Your full name</label><input id="fname" name="name" class="textbox">
+                    	</li>
+                    	<li id="your_email">
+                            <label>E-mail</label><input id="email" name="email" class="textbox">
+                    	</li>
+                    	<li id="contact_number">
+                            <label>Contact number</label><input id="mobile" name="mobile" class="textbox" maxlength="10" onchange="if(/\D/.test(this.value)){alert('Support Digial Only');this.value='';}"><br>
+                    	</li>
+                    	<li id="promo_code">
+                            <label>Promotion Code</label><input name="pcode" class="textbox"><br>
+                    	</li>
+                        <li class="col-1-2"><h3>Any addition notes about your video?</h3>
+                            <textarea name="notes" class="textarea"></textarea>
+                        </li>
+                    </ul>
+					<input type="submit" value="Generate your Video" id="submitbutton">
+                    
+                        
+				</li>
+			</ul>
+			
+                    </form>
+		</div>
+        
+		<p id="helper_text">You can jump between steps by pressing the numbers</p>
+        <!--</form>-->
+        
+	</section>	
+    <div class="dialog">
+    	<p>Thanks for your purchase, your video has been uploading! <br>Please be Patient.</p>
+        <p>Depend on the file size and network bandwidth, the upload maybe need to take a hour or longer.</p>
+    	<img src="img/loading_anime.gif">
+    </div>
+    
+    <? include('footer.php');?>
+    
+		<script>
+			$('#logo_file').change(function(){
+				  $('#logo').val(this.files && this.files.length ? this.files[0].name : this.value.replace(/^C:\\fakepath\\/i, ''));
+				  $( "#companyname" ).addClass("disappear");
+			});		
+			$('#video_file').change(function(){
+				  $('#video').val(this.files && this.files.length ? this.files[0].name : this.value.replace(/^C:\\fakepath\\/i, ''));
+			});
+			$('#font_style').change(function(){
+				var jq_style1 = $(this).val();
+				$('#realtime_upmsg').css('font-family', jq_style1), 'important';
+			});
+			$('#font_size').change(function(){
+				var jq_style2 = $(this).val();
+				$('#realtime_upmsg').css('font-size', jq_style2, 'important');
+			});
+			$('#font_tran').change(function(){
+				var jq_style3 = $(this).val();
+				$('#realtime_upmsg').css('text-transform', jq_style3, 'important');
+			});
+			$('#font_style2').change(function(){
+				var jq_style4 = $(this).val();
+				$('#realtime_mdmsg').css('font-family', jq_style4), 'important';
+			});
+			$('#font_size2').change(function(){
+				var jq_style5 = $(this).val();
+				$('#realtime_mdmsg').css('font-size', jq_style5, 'important');
+			});
+			$('#font_tran2').change(function(){
+				var jq_style6 = $(this).val();
+				$('#realtime_mdmsg').css('text-transform', jq_style6, 'important');
+			});
+			$('#font_style3').change(function(){
+				var jq_style7 = $(this).val();
+				$('#realtime_bumsg').css('font-family', jq_style7), 'important';
+			});
+			$('#font_size3').change(function(){
+				var jq_style8 = $(this).val();
+				$('#realtime_bumsg').css('font-size', jq_style8, 'important');
+			});
+			$('#font_tran3').change(function(){
+				var jq_style9 = $(this).val();
+				$('#realtime_bumsg').css('text-transform', jq_style9, 'important');
+			});
+			$( "#backgroup_color" ).change(function () {
+				$( "#realtime_upmsg" ).removeClass("bg_White bg_Black");
+				$( "#realtime_mdmsg" ).removeClass("bg_White bg_Black");
+				$( "#realtime_bumsg" ).removeClass("bg_White bg_Black");
+				var colorclass = "";
+				$( "#backgroup_color option:selected" ).each(function() {
+					colorclass += "bg_"+$( this ).text() + " ";
+				});
+				$( "#realtime_upmsg" ).addClass(colorclass);
+				$( "#realtime_mdmsg" ).addClass(colorclass);
+				$( "#realtime_bumsg" ).addClass(colorclass);
+			})
+			.change();
+			$('#realtime_upmsg').focus(function() {
+				$( "#select_option1" ).removeClass("display disappear");
+				$( "#select_option2" ).removeClass("display disappear");
+				$( "#select_option3" ).removeClass("display disappear");
+				$( "#select_option1" ).addClass("display");
+				$( "#select_option2" ).addClass("disappear");
+				$( "#select_option3" ).addClass("disappear");
+			});
+			$('#realtime_mdmsg').focus(function() {
+				$( "#select_option1" ).removeClass("display disappear");
+				$( "#select_option2" ).removeClass("display disappear");
+				$( "#select_option3" ).removeClass("display disappear");
+				$( "#select_option1" ).addClass("disappear");
+				$( "#select_option2" ).addClass("display");
+				$( "#select_option3" ).addClass("disappear");
+			});
+			$('#realtime_bumsg').focus(function() {
+				$( "#select_option1" ).removeClass("display disappear");
+				$( "#select_option2" ).removeClass("display disappear");
+				$( "#select_option3" ).removeClass("display disappear");
+				$( "#select_option1" ).addClass("disappear");
+				$( "#select_option2" ).addClass("disappear");
+				$( "#select_option3" ).addClass("display");
+			});
+		</script>
+	</body>
+</html>

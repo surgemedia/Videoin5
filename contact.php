@@ -1,0 +1,36 @@
+<?
+	include('db_connection_13r2fdfd34.php');
+	
+	$globel_data = mysql_query("SELECT * FROM global_datas ORDER BY id");//if can insert order information to database, allow php to take paypal account
+	$globel_data_num = mysql_num_rows($globel_data);
+	for($i=0; $i<$globel_data_num; $i++){
+		$globel_data_row = 	mysql_fetch_array($globel_data);
+		$globel_data_values[$globel_data_row['type_name']] = $globel_data_row['values'];
+	}
+?>
+<!DOCTYPE html>
+<html lang="">
+	<? include('head.php');?>
+	<body>
+	<? include('content_header.php');?>
+
+	<section id="main" class=" wowd fadeInDown blockwidth grid">
+<div id="slider" class="blockwidth mcenter">
+	<div id="faq" class=" center">
+    <h2>CONTACT US</h2>
+    	<div style="line-height:50px;" class="terms"> 
+    	  <p>Please feel free to contact us with any questions that you might have. One of our friendly staff will be happy to help.</p>
+    	  <p><strong>Phone: </strong>07 3137 1171<br>
+   	      <strong>Email: </strong>info@videoinfive.com.au</p>
+    	  <p>Video in Five is owned and operated by <strong>Surge Media Pty Ltd</strong></p>
+    	  <h3>Online enquiry</h3>
+    	  <p>ENTER FORM HERE</p>
+    	</div>
+	</div>
+</div>
+
+	</section>	
+
+ <? include('footer.php');?>
+	</body>
+</html>

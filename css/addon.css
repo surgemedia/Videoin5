@@ -1,0 +1,14 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.coupon{
+	margin:0 auto;
+	width:70%;
+	background-image:url(../img/coupon.jpg);
+	border-radius: 0.5em;
+	padding: 3em 0;
+	border: 2px dashed green;
+	font-size:40px;
+	color:#fff;
+	text-shadow:2px 2px green;
+}
