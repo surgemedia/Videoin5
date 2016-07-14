@@ -1,5 +1,8 @@
 <?php
+error_reporting(-1);
+ini_set('display_errors', 'On');
 include ('db_connection_13r2fdfd34.php');
+
 $globel_data = mysql_query("SELECT * FROM global_datas ORDER BY id");
 
 //if can insert order information to database, allow php to take paypal account
@@ -9,7 +12,9 @@ for ($i = 0; $i < $globel_data_num; $i++) {
     $globel_data_values[$globel_data_row['type_name']] = $globel_data_row['global_values'];
 	$order_num = 'v5-'.time();
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="">
 	<?php
@@ -738,6 +743,6 @@ if ($_GET['error'] == 2) {
         </div>
 
         <?php include ('footer.php'); ?>
-         s
+         
     </body>
 </html>

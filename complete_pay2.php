@@ -219,13 +219,27 @@ $updateinvoice_result = mysql_query($updateinvoice);
 </html>
 			';
 			
-			$headers = "MIME-Version: 1.0\r\n";
-			$headers .= "Content-type: text/html; charset=utf-8\r\n";
+		 require_once 'inc/aws/ses.class.php';
+		 $m = new SimpleEmailServiceMessage();
+		 $ses = new SimpleEmailService('AKIAIOH2AUGQJV3XLOEA', 'OoQW1hMMMeWJMb094RUyrBRKWQEQjfeMjTPkvd2+');
+		 $m->setFrom('video@surgemedia.com.au');
+     $m->addTo($to);
+     $m->setSubject($subject);
+     $m->setMessageFromString('',$message);
+     $m->setMessageCharset('','UTF-8');
+     $ses->sendEmail($m);
+
+     $internal_m = new SimpleEmailServiceMessage();
+     $internal_m->setFrom('video@surgemedia.com.au');
+     $internal_m->addTo($to2);
+     $internal_m->setSubject( $subject);
+     $internal_m->setMessageFromString('',$message);
+     $internal_m->setMessageCharset('','UTF-8');
+     $ses->sendEmail($internal_m);
+	
 			
-			$headers .="From: ". $name . " <" . $from . ">\r\n";
-			
-			mail($to, $subject, $message, $headers);										
-			mail($to2, $subject, $message, $headers);		
+			// mail($to, $subject, $message, $headers);										
+			// mail($to2, $subject, $message, $headers);		
 
 if (!$fp) {
 // HTTP ERROR

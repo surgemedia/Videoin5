@@ -1,4 +1,5 @@
 <?
+include ('inc/aws/aws-config.php');
 	if($_POST['check_bot-2']!=$_POST['color_match-2']){
 		header('Location: http://v5.surgemedia.com.au/error.php?error=2');	//If cannot connect to the database, just redirectly back to font page
 		exit;
@@ -95,7 +96,7 @@
 	$check_dupc_result = mysql_query($check_dupc);
 	$check_dupc_num = mysql_num_rows($check_dupc_result);
 	if($check_dupc_num>10){
-		header('Location: http://vid5.surgehost.com.au/error.php?error=1');	//If cannot connect to the database, just redirectly back to font page
+		header('Location: http://v5.surgemedia.com.au/error.php?error=1');	//If cannot connect to the database, just redirectly back to font page
 		exit;
 	}
 	

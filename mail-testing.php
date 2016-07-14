@@ -1,15 +1,17 @@
-<?php	
-	include('db_connection_13r2fdfd34.php');
+<?php
+error_reporting(-1);
+ini_set('display_errors', 'On');
+include ('db_connection_13r2fdfd34.php');
+include ('head.php'); ?>
 
-    if($_POST['order_number']!=""){
-		$check_order = mysql_query("SELECT * FROM v5_order_new_live WHERE order_num LIKE '".$_POST['order_number']."'");
-		$check_order_num = mysql_num_rows($check_order);
-		$check_order_row = mysql_fetch_array($check_order);
-	
-		if($check_order_num!=0){
+<?php 
+	require_once 'inc/aws/ses.class.php';
+	$m = new SimpleEmailServiceMessage();
+	$ses = new SimpleEmailService('AKIAIOH2AUGQJV3XLOEA', 'OoQW1hMMMeWJMb094RUyrBRKWQEQjfeMjTPkvd2+');
+
 			$name = "V5 Surge Media";
 			$from = "video@surgemedia.com.au";
-			$to = $check_order_row['email'];
+			$to = 'alex@surgemedia.com.au';
       $headers = "MIME-Version: 1.0\r\n";
       $headers .= "Content-type: text/html; charset=utf-8\r\n";
       $headers .="From: ". $name . " <" . $frommail . ">\r\n";
@@ -39,7 +41,7 @@
           <td>'.$check_order_row['order_num'].'</td>
         </tr>
         <tr>
-          <td>Downlaod Link:</td>
+          <td>Download Link:</td>
           <td>'.$_POST['video_linking'].'</td>
         </tr>
         <tr>
@@ -64,59 +66,8 @@
      $m->setMessageFromString('',$message);
      $m->setMessageCharset('','UTF-8');
      $ses->sendEmail($m);
-
-			// $headers = "MIME-Version: 1.0\r\n";
-			// $headers .= "Content-type: text/html; charset=utf-8\r\n";
-			
-			// $headers .="From: ". $name . " <" . $from . ">\r\n";
-			
-			// mail($to, $subject, $message, $headers);										
-			
-		}else{
-			$errors_message = '<h2 style="color:red;">Have not this order number. please double check again.</h2>';
-		}
-	}
-?>
-<!DOCTYPE html>
-<html lang="">
-	<?php include('head.php');?>
-	<body>
-	<?php include('confirm_header.php');?>
-	<section id="main" class=" wowd fadeInDown blockwidth grid">
-   	<div id="slider" class="blockwidth mcenter">
-    	<form action="#" method="post" enctype="multipart/form-data">
-        <div id="faq" class=" center">
-            <div>
-            	<?=$errors_message;?>
-                <h2>Completed Video</h2>
-            </div>
-            <ul id="quote" class="form">
-                <li>
-                <label>Order number:</label>
-                <input id="order_number" class="textbox" name="order_number">
-                </li>
-                <li>
-                <label>Video link:</label>
-                <input id="video_linking" class="textbox" name="video_linking">
-                </li>
-                <li class="rslides_nav">
-                <input type="submit" value="Send Completed video">
-                </li>
-            </ul>
-        </div>
-        </form>
-	</div>
-
-	</section>	
-    
-
-		<!-- jQuery -->
-		<script src="js/jquery.js"></script>
-		<script src="js/responsiveslides.min.js"></script>
-		<script src="js/wow.min.js"></script>
-		<!-- Bootstrap JavaScript -->
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/jquery.backgroundvideo.min.js"></script>
-		<script src="js/app.js"></script>
-	</body>
+      ?>
+        <?php include ('footer.php'); ?>
+         
+    </body>
 </html>

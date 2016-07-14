@@ -1,5 +1,8 @@
 <?
 	include('db_connection_13r2fdfd34.php');
+
+	 require_once 'inc/aws/ses.class.php';
+	$ses = new SimpleEmailService('AKIAIOH2AUGQJV3XLOEA', 'OoQW1hMMMeWJMb094RUyrBRKWQEQjfeMjTPkvd2+');
 	
 	$globel_data = mysql_query("SELECT * FROM global_datas ORDER BY id");//if can insert order information to database, allow php to take paypal account
 	$globel_data_num = mysql_num_rows($globel_data);
@@ -409,6 +412,7 @@ if(getResponseDescription($txnResponseCode) == "Transaction Successful" && $mess
 				$cfsty3 .= " text-transform:".$takeorderinformation_row['cfont_tran3']."; ";
 			}
 
+
 			
 			$name = "V5 Surge Media";
 			$from = "cs@videoin5.com.au";
@@ -549,8 +553,27 @@ if(getResponseDescription($txnResponseCode) == "Transaction Successful" && $mess
 			
 			$headers .="From: ". $name . " <" . $from . ">\r\n";
 			if($_SESSION['mailout']<3){
-				mail($to, $subject, $message, $headers);										
-				mail($to2, $subject, $message, $headers);
+
+		 $m = new SimpleEmailServiceMessage();
+		 $m->setFrom('video@surgemedia.com.au');
+     $m->addTo($to);
+     $m->setSubject($subject);
+     $m->setMessageFromString('',$message);
+     $m->setMessageCharset('','UTF-8');
+     $ses->sendEmail($m);
+     unset($m);
+
+     $internal_m = new SimpleEmailServiceMessage();
+     $internal_m->setFrom('video@surgemedia.com.au');
+     $internal_m->addTo($to2);
+     $internal_m->setSubject( $subject);
+     $internal_m->setMessageFromString('',$message);
+     $internal_m->setMessageCharset('','UTF-8');
+     $ses->sendEmail($internal_m);
+     unset($internal_m);
+
+				// mail($to, $subject, $message, $headers);										
+				// mail($to2, $subject, $message, $headers);
 			}
 			$message2 = '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -683,15 +706,40 @@ We will email you a link to download your video when its ready.
 			
 			$headers .="From: ". $name . " <" . $from . ">\r\n";
 			if($_SESSION['mailout']<3){
-				mail($to, $subject, $message, $headers);										
-				mail($to2, $subject, $message, $headers);
+				$m = new SimpleEmailServiceMessage();
+				 $m->setFrom('video@surgemedia.com.au');
+		     $m->addTo($to);
+		     $m->setSubject($subject);
+		     $m->setMessageFromString('',$message);
+		     $m->setMessageCharset('','UTF-8');
+		     $ses->sendEmail($m);
+		     unset($m);
+
+		     $internal_m = new SimpleEmailServiceMessage();
+		     $internal_m->setFrom('video@surgemedia.com.au');
+		     $internal_m->addTo($to2);
+		     $internal_m->setSubject( $subject);
+		     $internal_m->setMessageFromString('',$message);
+		     $internal_m->setMessageCharset('','UTF-8');
+		     $ses->sendEmail($internal_m);
+		     unset($internal_m);
+
+				// mail($to, $subject, $message, $headers);										
+				// mail($to2, $subject, $message, $headers);
 			}
 			$offerusedcheck = mysql_query("SELECT * FROM v5_order_new_live WHERE email LIKE '".$to."' AND offer_usage = 1 AND payment_statue = 1");
 			$offerusedcheck_num = mysql_num_rows($offerusedcheck);
 			if($offerusedcheck_num<=5)
 			{
 				if($_SESSION['mailout']<3){	
-					mail($to, $subject2, $message2, $headers);
+				 $m = new SimpleEmailServiceMessage();
+				 $m->setFrom('video@surgemedia.com.au');
+		     $m->addTo($to);
+		     $m->setSubject($subject2);
+		     $m->setMessageFromString('',$message2);
+		     $m->setMessageCharset('','UTF-8');
+		     $ses->sendEmail($m);
+		     unset($m);
 				}
 				$body_contents = '
 				<section id="main" class=" wowd fadeInDown blockwidth grid">
